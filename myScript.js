@@ -42,18 +42,18 @@ function playRound(playerSelection, computerSelection) {
 
 function game(playerSelection, computerSelection) {
 
-    playerScore = 0;
-    computerScore = 0; 
+    let playerScore = 0;
+    let computerScore = 0; 
 
     for (let i = 0; i < 5; i++) {
         result = playRound(playerSelection, computerSelection);
-        console.log(result);
-        if (result.includes("Player wins!")) {
-            ++playerScore;
-        } else if (result.includes("Computer wins!")) {
-            ++computerScore;
+        if (result.includes("You win!")) {
+            playerScore++;
+        } else if (result.includes("You lose!")) {
+            computerScore++;
         }
-        
+        console.log(result)
+        computerSelection = getComputerChoice()
     }
 
     return "Player score is: " + playerScore + ". " + "Computer score is: " + computerScore + ".";
