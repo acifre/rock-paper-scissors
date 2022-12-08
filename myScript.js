@@ -1,5 +1,7 @@
 
 let playerSelection = 0;
+let playerScore = 0;
+let computerScore =0;
 
 const choices = document.querySelectorAll('.choice');
 console.log(choices);
@@ -10,10 +12,29 @@ choices.forEach((choice) => {
 
     choice.addEventListener('click', () => {
         playerSelection = getPlayerChoice(choice.textContent);
-        console.log(playerSelection)
+        computerSelection = getComputerChoice()
+        
+        result = playRound(playerSelection, computerSelection);
+
+        checkResult(result);
+
+        console.log(result);
+        console.log(playerScore);
+        console.log(computerScore);
+        
+
+        if (playerScore >= 5 || computerScore >= 5) {
+            alert("Game Over");
+            playerScore = 0;
+            computerScore = 0;
+        }
+
     });
 });
 
+
+
+// if player score or computer score reaches 5, reset scores and send out alert
 
 
 // functions
@@ -72,8 +93,16 @@ function game(playerSelection, computerSelection) {
             computerScore++;
         }
         console.log(result)
-        computerSelection = getComputerChoice()
+        
     }
 
     return "Player score is: " + playerScore + ". " + "Computer score is: " + computerScore + ".";
+}
+
+function checkResult(result) {
+    if (result.includes("You win!")) {
+        playerScore++;
+    } else if (result.includes("You lose!")) {
+        computerScore++;
+    }
 }
