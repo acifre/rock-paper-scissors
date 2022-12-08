@@ -8,36 +8,31 @@ let computerScore = 0;
 
 const body = document.querySelector("body");
 const scoreRow = document.querySelector(".score-row");
-
-// Setting event listener for each choice button
-
-const choices = document.querySelectorAll('.choice');
-
 const pScoreDiv = document.createElement('div');
 const cScoreDiv = document.createElement('div');
 const resultDiv = document.createElement('div');
 const gameOverDiv = document.createElement('div');
 
-
+// Player score
 pScoreDiv.setAttribute('style', 'color: black; background: white; border: 2px solid blue;'); 
 scoreRow.appendChild(pScoreDiv);
 pScoreDiv.innerHTML = "Player Score: " + playerScore;
 pScoreDiv.classList.add("score-text");
 
+// Computer score
 cScoreDiv.setAttribute('style', 'color: black; background: white; border: 2px solid red;'); 
 scoreRow.appendChild(cScoreDiv);
 cScoreDiv.innerHTML = "Computer Score: " + computerScore;
 cScoreDiv.classList.add("score-text");
 
+// Result of each round
 body.insertBefore(resultDiv, scoreRow);
 resultDiv.setAttribute('style', 'display: flex; justify-content: center; align-items: center;')
 resultDiv.classList.add("result");
 
+// Setting event listener for each choice button
 
-//resultDiv.textContent = roundResult;
-//console.log(resultDiv)
-
-//scoreRow.appendChild(resultDiv);
+const choices = document.querySelectorAll('.choice');
 
 // Adding an event listener to each choice in the nodelist (choices)
 
@@ -70,17 +65,11 @@ choices.forEach((choice) => {
     });
 });
 
+// Remove 
 choices.forEach(choice => choice.addEventListener('transitionend', removeTransition))
 
 
-
-
-
-
-// if player score or computer score reaches 5, reset scores and send out alert
-
-
-// functions
+// Functions -------------------------------------
 
 function removeTransition(e) {
     if(e.propertyName !== 'transform') return;
@@ -126,60 +115,6 @@ function playRound(playerSelection, computerSelection) {
         return messageLose.concat(" ", scissorBeatsPaper);
     } else if (computerSelection == playerSelection) {
         return messageTie; 
-    }
-}
-
-function game(playerSelection, computerSelection) {
-
-    let playerScore = 0;
-    let computerScore = 0; 
-
-    for (let i = 0; i < 5; i++) {
-        result = playRound(playerSelection, computerSelection);
-        if (result.includes("You win:")) {
-            playerScore++;
-        } else if (result.includes("You lose:")) {
-            computerScore++;
-        }
-        console.log(result)
-        
-    }
-
-    return "Player score is: " + playerScore + ". " + "Computer score is: " + computerScore + ".";
-}
-
-function checkResult(result) {
-    if (result.includes("You win:")) {
-        ++playerScore;
-    } else if (result.includes("You lose:")) {
-        ++computerScore;
-    }
-}
-
-function createTracker(result, playerScore, computerScore) {
-    console.log(result);
-
-
-
-}
-
-function playGame(playerInput) {
-    playerSelection = getPlayerChoice(playerInput.textContent);
-    computerSelection = getComputerChoice()
-    
-    roundResult = playRound(playerSelection, computerSelection);
-
-    checkResult(roundResult);
-
-    console.log(roundResult);
-    console.log(playerScore);
-    console.log(computerScore);
-    
-
-    if (playerScore >= 5 || computerScore >= 5) {
-        alert("Game Over");
-        playerScore = 0;
-        computerScore = 0;
     }
 }
 
