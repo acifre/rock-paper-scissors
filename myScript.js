@@ -1,3 +1,22 @@
+
+let playerSelection = 0;
+
+const choices = document.querySelectorAll('.choice');
+console.log(choices);
+
+//adding an event listener to each choice in the nodelist (choices)
+
+choices.forEach((choice) => {
+
+    choice.addEventListener('click', () => {
+        playerSelection = getPlayerChoice(choice.textContent);
+        console.log(playerSelection)
+    });
+});
+
+
+
+// functions
 function getComputerChoice() {
     min = 0;
     max = 2;
