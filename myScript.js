@@ -1,36 +1,79 @@
 
+// Initializing global variables
 let playerSelection = 0;
 let playerScore = 0;
-let computerScore =0;
+let computerScore = 0;
+
+// Initializing document variables
+
+const body = document.querySelector("body");
+const scoreRow = document.querySelector(".score-row");
+
+// Setting event listener for each choice button
 
 const choices = document.querySelectorAll('.choice');
-console.log(choices);
 
-//adding an event listener to each choice in the nodelist (choices)
+const pScoreDiv = document.createElement('div');
+const cScoreDiv = document.createElement('div');
+const resultDiv = document.createElement('div');
+const gameOverDiv = document.createElement('div');
+
+
+pScoreDiv.setAttribute('style', 'color: black; background: white; border: 2px solid blue;'); 
+scoreRow.appendChild(pScoreDiv);
+pScoreDiv.innerHTML = "Player Score: " + playerScore;
+pScoreDiv.classList.add("score-text");
+
+cScoreDiv.setAttribute('style', 'color: black; background: white; border: 2px solid red;'); 
+scoreRow.appendChild(cScoreDiv);
+cScoreDiv.innerHTML = "Computer Score: " + computerScore;
+cScoreDiv.classList.add("score-text");
+
+body.insertBefore(resultDiv, scoreRow);
+resultDiv.setAttribute('style', 'display: flex; justify-content: center; align-items: center;')
+resultDiv.classList.add("result");
+
+
+//resultDiv.textContent = roundResult;
+//console.log(resultDiv)
+
+//scoreRow.appendChild(resultDiv);
+
+// Adding an event listener to each choice in the nodelist (choices)
+
+console.log(choices)
 
 choices.forEach((choice) => {
 
     choice.addEventListener('click', () => {
+        choice.classList.add("picked");
         playerSelection = getPlayerChoice(choice.textContent);
-        computerSelection = getComputerChoice()
+        computerSelection = getComputerChoice();
         
-        result = playRound(playerSelection, computerSelection);
-
-        checkResult(result);
-
-        console.log(result);
+        roundResult = playRound(playerSelection, computerSelection);
+    
+        checkResult(roundResult);
+        pScoreDiv.innerHTML = "Player Score: " + playerScore;
+        cScoreDiv.innerHTML = "Computer Score: " + computerScore;
+        resultDiv.innerHTML = roundResult;
+    
+        console.log(roundResult);
         console.log(playerScore);
         console.log(computerScore);
         
-
+    
         if (playerScore >= 5 || computerScore >= 5) {
             alert("Game Over");
-            playerScore = 0;
-            computerScore = 0;
+            resetScores();
         }
-
+        
     });
 });
+
+choices.forEach(choice => choice.addEventListener('transitionend', removeTransition))
+
+
+
 
 
 
@@ -38,6 +81,12 @@ choices.forEach((choice) => {
 
 
 // functions
+
+function removeTransition(e) {
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('picked');
+}
+
 function getComputerChoice() {
     min = 0;
     max = 2;
@@ -55,8 +104,8 @@ function getPlayerChoice(input) {
 
 function playRound(playerSelection, computerSelection) {
 
-    messageWin = "You win!";
-    messageLose = "You lose!";
+    messageWin = "You win:";
+    messageLose = "You lose:";
     messageTie = "It's a tie!";
     rockBeatScissor = "Rock beats Scissors!";
     paperBeatsRock = "Paper beats Rock!";
@@ -87,9 +136,9 @@ function game(playerSelection, computerSelection) {
 
     for (let i = 0; i < 5; i++) {
         result = playRound(playerSelection, computerSelection);
-        if (result.includes("You win!")) {
+        if (result.includes("You win:")) {
             playerScore++;
-        } else if (result.includes("You lose!")) {
+        } else if (result.includes("You lose:")) {
             computerScore++;
         }
         console.log(result)
@@ -100,9 +149,42 @@ function game(playerSelection, computerSelection) {
 }
 
 function checkResult(result) {
-    if (result.includes("You win!")) {
-        playerScore++;
-    } else if (result.includes("You lose!")) {
-        computerScore++;
+    if (result.includes("You win:")) {
+        ++playerScore;
+    } else if (result.includes("You lose:")) {
+        ++computerScore;
     }
+}
+
+function createTracker(result, playerScore, computerScore) {
+    console.log(result);
+
+
+
+}
+
+function playGame(playerInput) {
+    playerSelection = getPlayerChoice(playerInput.textContent);
+    computerSelection = getComputerChoice()
+    
+    roundResult = playRound(playerSelection, computerSelection);
+
+    checkResult(roundResult);
+
+    console.log(roundResult);
+    console.log(playerScore);
+    console.log(computerScore);
+    
+
+    if (playerScore >= 5 || computerScore >= 5) {
+        alert("Game Over");
+        playerScore = 0;
+        computerScore = 0;
+    }
+}
+
+
+function resetScores() {
+    playerScore = 0;
+    computerScore = 0;
 }

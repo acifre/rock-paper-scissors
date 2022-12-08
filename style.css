@@ -1,3 +1,15 @@
+body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-size: 16px;
+    gap: 32px;
+}
+
+.image-txt {
+    display: flex;
+    flex-direction: column;
+}
 
 .container {
     display: flex;
@@ -6,6 +18,34 @@
     gap: 12px
 }
 
+img {
+    width: 200px;
+    height: 200px;
+}
+
 .choice {
-    border: 2px solid blue;
+    border: 2px solid black;
+    padding: 8px;
+    font-size: 24px;
+    transition: all 1.00s;
+}
+
+.picked {
+    transform:scale(1.2);
+    border-color: blue;
+    box-shadow: 0 0 10px black;
+}
+
+.score-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.score-text {
+    padding: 8px;
+}
+
+.result {
+    font-size: 24px;
 }
