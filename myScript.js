@@ -61,8 +61,14 @@ choices.forEach((choice) => {
     
         if (playerScore >= 5) {
             gameOverDiv.innerHTML = "Game Over: Player wins!"
+            alert(gameOverDiv.innerHTML)
+            resetScores();
+            resetText();
         } else if (computerScore >= 5) {
             gameOverDiv.innerHTML = "Game Over: Computer wins!"
+            alert(gameOverDiv.innerHTML)
+            resetScores();
+            resetText();
         }
         
     });
@@ -70,6 +76,8 @@ choices.forEach((choice) => {
 
 // Remove 
 choices.forEach(choice => choice.addEventListener('transitionend', removeTransition))
+
+gameOverDiv.addEventListener()
 
 
 // Functions -------------------------------------
@@ -133,4 +141,10 @@ function resetScores() {
     playerScore = 0;
     computerScore = 0;
     gameOverDiv.innerHTML = "";
+}
+
+function resetText() {
+    pScoreDiv.innerHTML = "Player Score: " + playerScore;
+    cScoreDiv.innerHTML = "Computer Score: " + computerScore;
+    resultDiv.innerHTML = "";
 }

@@ -27,7 +27,7 @@ img {
     border: 2px solid black;
     padding: 8px;
     font-size: 24px;
-    transition: all 1.00s;
+    transition: all 0.07s;
 }
 
 .picked {
