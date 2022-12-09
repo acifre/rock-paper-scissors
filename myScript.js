@@ -30,6 +30,12 @@ body.insertBefore(resultDiv, scoreRow);
 resultDiv.setAttribute('style', 'display: flex; justify-content: center; align-items: center;')
 resultDiv.classList.add("result");
 
+// Game over
+gameOverDiv.setAttribute('style', 'color: black; border: 2px solid blue;');
+body.appendChild(gameOverDiv);
+gameOverDiv.innerHTML = "";
+
+
 // Setting event listener for each choice button
 
 const choices = document.querySelectorAll('.choice');
@@ -51,15 +57,12 @@ choices.forEach((choice) => {
         pScoreDiv.innerHTML = "Player Score: " + playerScore;
         cScoreDiv.innerHTML = "Computer Score: " + computerScore;
         resultDiv.innerHTML = roundResult;
-    
-        console.log(roundResult);
-        console.log(playerScore);
-        console.log(computerScore);
         
     
-        if (playerScore >= 5 || computerScore >= 5) {
-            alert("Game Over");
-            resetScores();
+        if (playerScore >= 5) {
+            gameOverDiv.innerHTML = "Game Over: Player wins!"
+        } else if (computerScore >= 5) {
+            gameOverDiv.innerHTML = "Game Over: Computer wins!"
         }
         
     });
@@ -118,8 +121,16 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function checkResult(result) {
+    if (result.includes("You win:")) {
+        ++playerScore;
+    } else if (result.includes("You lose:")) {
+        ++computerScore;
+    }
+}
 
 function resetScores() {
     playerScore = 0;
     computerScore = 0;
+    gameOverDiv.innerHTML = "";
 }
